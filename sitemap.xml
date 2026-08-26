@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sitemap da landing page Odisys.
+  A LP é uma página única — as âncoras (#sistema, #precos, #faq) não entram
+  no sitemap porque o Google as trata como a mesma URL da home.
+  Ao publicar páginas reais (/termos, /privacidade, /blog/...), adicione um
+  bloco <url> para cada uma e atualize <lastmod>.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://odisys.com.br/</loc>
+    <lastmod>2026-08-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://odisys.com.br/assets/og/og-image.png</image:loc>
+      <image:title>Odisys — gerador de carrosséis com IA</image:title>
+    </image:image>
+  </url>
+</urlset>

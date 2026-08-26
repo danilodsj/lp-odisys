@@ -1,0 +1,10 @@
+# robots.txt — Odisys
+# Troque o domínio abaixo pelo domínio real de produção.
+
+User-agent: *
+Allow: /
+
+# Arquivos de build/fonte não precisam ser rastreados
+Disallow: /tools/
+
+Sitemap: https://odisys.com.br/sitemap.xml

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1200px;height:630px}
+  body{
+    font-family:'Manrope',system-ui,-apple-system,sans-serif;
+    background:#0C0C0F;
+    color:#F4F3F8;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:64px 72px;
+  }
+  .glow{
+    position:absolute;
+    width:900px;height:900px;
+    right:-260px;top:-320px;
+    background:radial-gradient(circle,rgba(124,92,248,.30),rgba(124,92,248,0) 62%);
+    pointer-events:none;
+  }
+  .glow-2{
+    position:absolute;
+    width:640px;height:640px;
+    left:-280px;bottom:-340px;
+    background:radial-gradient(circle,rgba(74,37,214,.26),rgba(74,37,214,0) 64%);
+    pointer-events:none;
+  }
+  .grid{
+    position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+    background-size:60px 60px;
+    mask-image:linear-gradient(180deg,rgba(0,0,0,.9),transparent 78%);
+    -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.9),transparent 78%);
+  }
+  .content{position:relative;z-index:2;display:flex;flex-direction:column;height:100%;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:18px}
+  .brand img{width:52px;height:52px;display:block}
+  .brand .word{font-size:26px;font-weight:800;letter-spacing:.20em}
+  .eyebrow{
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:15px;letter-spacing:.22em;
+    color:#A78BFF;text-transform:uppercase;
+    margin-bottom:22px;
+  }
+  h1{
+    font-size:56px;line-height:1.08;letter-spacing:-.03em;font-weight:800;
+    max-width:1000px;
+  }
+  h1 em{font-style:normal;background:linear-gradient(135deg,#7C5CF8,#A78BFF);-webkit-background-clip:text;background-clip:text;color:transparent}
+  p{
+    font-size:25px;line-height:1.45;color:#b6b2c4;
+    max-width:800px;margin-top:24px;font-weight:400;
+  }
+  .footer{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .chip{
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:15px;letter-spacing:.10em;
+    color:#b6b2c4;
+    border:1px solid #33304a;border-radius:999px;
+    padding:10px 20px;
+  }
+  .chip.is-accent{color:#0C0C0F;background:linear-gradient(135deg,#4A25D6,#9B7CFF);border-color:transparent;font-weight:500;color:#fff}
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="glow-2"></div>
+  <div class="grid"></div>
+
+  <div class="content">
+    <div class="brand">
+      <img src="../assets/logo/isotipo-gradiente.svg" alt="">
+      <span class="word">ODISYS</span>
+    </div>
+
+    <div>
+      <div class="eyebrow">AI Creative System</div>
+      <h1>Carrosséis de alto impacto,<br>criados por um <em>sistema de IA</em>.</h1>
+      <p>Estratégia, copy e direção de arte em um único fluxo. Você dá o ângulo — três agentes constroem o carrossel inteiro.</p>
+    </div>
+
+    <div class="footer">
+      <span class="chip is-accent">Comece grátis</span>
+      <span class="chip">Sua marca salva uma vez</span>
+      <span class="chip">Editor livre</span>
+    </div>
+  </div>
+</body>
+</html>

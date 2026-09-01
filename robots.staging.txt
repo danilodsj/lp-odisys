@@ -1,0 +1,6 @@
+# robots.txt do ambiente de staging (lpstaging.odisys.com.br)
+# Servido via rewrite condicional por host em vercel.json.
+# Staging nunca deve ser indexado — o robots.txt de produção fica em robots.txt.
+
+User-agent: *
+Disallow: /

@@ -25,8 +25,8 @@ Deploy pela **Vercel**, projeto `lp-odisys`, team `danilodsjs-projects`, plano *
 
 ## Ambientes
 
-| Branch    | Ambiente Vercel | Domínio                              | Indexável | `environment` no dataLayer |
-|-----------|-----------------|--------------------------------------|-----------|----------------------------|
+| Branch    | Ambiente Vercel | Domínio                              | Indexável | `RegEx - environment` (GTM) |
+|-----------|-----------------|--------------------------------------|-----------|-----------------------------|
 | `main`    | Production      | `odisys.com.br`, `www.odisys.com.br` | **Sim**   | `production`               |
 | `staging` | Preview         | `lpstaging.odisys.com.br`            | Não       | `staging`                  |
 | outras    | Preview         | `*-danilodsjs-projects.vercel.app`   | Não       | `staging`                  |
@@ -65,12 +65,36 @@ Nunca commite direto em `main`. Nada vai para produção sem ter passado pelo st
    vazam regra de um ambiente para o outro. Ao adicionar uma regra nova, decida explicitamente se
    ela vale para os dois ambientes (sem `has`) ou só para o staging (com `has`).
 
-4. **GTM: um container só, separado pelo dataLayer.** O container `GTM-TQBQ5R4G` carrega nos dois
-   ambientes. O bloco no topo do `<head>` do `index.html` empurra `environment` para o dataLayer
-   (`production` só em `odisys.com.br`/`www.odisys.com.br`, `staging` em qualquer outro host) e
-   **precisa vir antes do snippet do GTM**. No GTM isso é lido pela Data Layer Variable
-   `environment`, usada para filtrar staging no GA4. Não mexa nesse bloco nem no snippet sem
-   entender o efeito nos relatórios.
+4. **GTM: a lógica de ambiente mora no GTM, não no código.** O container `GTM-TQBQ5R4G` e a
+   propriedade GA4 `G-FYRYEM4QCM` servem **esta LP e o app** (`app.odisys.com.br`, repo
+   `saas-carrossel`), nos dois ambientes. Quem classifica o ambiente é a variável
+   `RegEx - environment` no GTM, a partir do `Page Hostname`:
+
+   | Host | Ambiente |
+   |---|---|
+   | `odisys.com.br`, `www.odisys.com.br` | produção (LP) |
+   | `app.odisys.com.br` | produção (app) |
+   | `lpstaging.odisys.com.br` | staging (LP) |
+   | `staging.odisys.com.br` | staging (app) |
+   | `*.vercel.app` | staging (previews dos dois projetos) |
+   | `localhost`, `127.0.0.1` | staging (dev) |
+
+   A tabela enumera só os hosts **não-produtivos**; o valor padrão é `production`. Essa direção é
+   deliberada: esquecer um host de produção faria o GA4 descartar tráfego real de forma silenciosa
+   e permanente, enquanto esquecer um host de staging apenas suja o relatório — visível e
+   reversível. Um domínio de produção novo não exige nada; um host de staging que não termine em
+   `staging.odisys.com.br` nem em `.vercel.app` precisa de uma linha nova na tabela do GTM.
+
+   **Não reintroduza um push de `environment` no dataLayer.** A LP já teve esse bloco e ele foi
+   removido: com dois projetos publicando no mesmo container, uma segunda fonte de verdade volta a
+   permitir mapas divergentes entre os repositórios — que foi exatamente o bug que motivou a
+   mudança (o regex da LP não conhecia `app.odisys.com.br`). O hostname é a única fonte.
+
+   A jusante disso, no GTM: `Lookup - traffic_type` traduz `staging` → `internal` e **não tem valor
+   padrão** (é o que impede produção de enviar `traffic_type`), e o acionador `Bloqueio - Staging`
+   usa a mesma variável como exceção nas tags de conversão — o filtro do GA4 protege só o GA4,
+   não o Google Ads nem a Meta. No GA4, o filtro `Internal Traffic` descarta `traffic_type =
+   internal` na entrada; **ativá-lo é irreversível e não é retroativo**.
 
 5. **Não crie Custom Environments.** `vercel deploy --target=staging` e os Custom Environments da
    Vercel são recursos Pro+; a conta é Hobby. O staging é branch + domínio, como descrito acima.
@@ -90,7 +114,10 @@ No navegador, logado em `https://lpstaging.odisys.com.br`:
 
 - DevTools → Network → documento: header `x-robots-tag: noindex, nofollow`
 - `https://lpstaging.odisys.com.br/robots.txt` mostra `Disallow: /`
-- Console: `dataLayer[0].environment` === `'staging'` (e `'production'` em `odisys.com.br`)
+Para o ambiente visto pelo GTM, use o Preview do Tag Assistant e olhe a aba **Variáveis**:
+`RegEx - environment` deve dar `staging` nos hosts de staging e `production` em
+`odisys.com.br`/`www.odisys.com.br` e `app.odisys.com.br`, com `Lookup - traffic_type` em
+`undefined` nesses três.
 
 ## Fora do repositório
 

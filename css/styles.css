@@ -348,6 +348,8 @@ p{margin:0}
 .price-row .suffix{font-size:14px;color:var(--text-muted)}
 .price-card .plan-desc{font-size:14px;color:var(--text-muted);margin-top:10px}
 .price-features{display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--text-secondary)}
+.price-features .is-locked{color:var(--text-muted);opacity:.7}
+.price-features .is-locked::before{content:"🔒 "}
 .price-card .btn{margin-top:auto}
 
 .credits-panel{margin-top:48px;background:var(--surface-1);border:1px solid var(--border-default);border-radius:var(--radius-panel);padding:clamp(26px,3vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,4vw,56px)}

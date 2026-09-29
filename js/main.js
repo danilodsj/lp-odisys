@@ -87,7 +87,27 @@
     requestAnimationFrame(tick);
   }
 
+  // No staging da LP (lpstaging.odisys.com.br), os links para o app de
+  // produção passam a apontar para o app de staging, para testar o fluxo
+  // inteiro sem tocar em produção. Em qualquer outro host (odisys.com.br,
+  // www, lp-odisys.vercel.app, previews) nada muda: o HTML continua com
+  // app.odisys.com.br, que é o padrão seguro para produção.
+  var STAGING_HOSTS = { "lpstaging.odisys.com.br": "staging.odisys.com.br" };
+  var APP_PROD_HOST = "app.odisys.com.br";
+
+  function setupAppHost() {
+    var appHost = STAGING_HOSTS[window.location.hostname];
+    if (!appHost) return;
+    var links = document.querySelectorAll('a[href^="https://' + APP_PROD_HOST + '"]');
+    Array.prototype.forEach.call(links, function (a) {
+      var url = new URL(a.href);
+      url.hostname = appHost;
+      a.href = url.toString();
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
+    setupAppHost();
     setupReveal();
     setupCarousel();
   });

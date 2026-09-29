@@ -335,7 +335,8 @@ p{margin:0}
 .audience-tags{display:flex;gap:8px;flex-wrap:wrap}
 
 /* ===== 11 Pricing ===== */
-.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;align-items:start}
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-items:start}
+@media (max-width:1280px){.pricing-grid{grid-template-columns:repeat(2,1fr)}}
 .price-card{background:var(--surface-1);border-radius:var(--radius-panel);padding:clamp(24px,3vw,34px);display:flex;flex-direction:column;gap:22px;position:relative;transition:border-color var(--dur-fast) var(--ease-standard)}
 .price-card.is-plain{border:1px solid var(--border-default)}
 .price-card.is-plain:hover{border-color:var(--border-strong)}

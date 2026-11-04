@@ -352,6 +352,14 @@ p{margin:0}
 .price-features .is-locked{color:var(--text-muted);opacity:.7}
 .price-features .is-locked::before{content:"🔒 "}
 .price-card .btn{margin-top:auto}
+.price-card.is-founder{margin-top:28px;border:1px solid rgba(251,191,36,.55);background:linear-gradient(135deg,rgba(251,191,36,.08),rgba(236,72,153,.06)),var(--surface-1);display:grid;grid-template-columns:1fr minmax(220px,280px);gap:clamp(22px,4vw,48px);align-items:center}
+.price-card.is-founder .plan-name{color:#fbbf24}
+.price-card.is-founder .price-badge{background:linear-gradient(90deg,#f59e0b,#ec4899)}
+.founder-features{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 24px;margin-top:18px}
+.founder-features div::before{content:"✓ ";color:#fbbf24}
+.founder-cta{display:flex;flex-direction:column;gap:10px}
+.founder-cta .btn{margin-top:8px}
+@media (max-width:820px){.price-card.is-founder{grid-template-columns:1fr}.founder-features{grid-template-columns:1fr}}
 
 .credits-panel{margin-top:48px;background:var(--surface-1);border:1px solid var(--border-default);border-radius:var(--radius-panel);padding:clamp(26px,3vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,4vw,56px)}
 .credits-panel .kicker{font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--violet);margin-bottom:18px}
